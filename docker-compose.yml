@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "${BACKEND_PORT:-4000}:${BACKEND_PORT:-4000}"
+    environment:
+      - PORT=${BACKEND_PORT:-4000}
+    develop:
+      watch:
+        - path: ./backend
+          target: /app
+          action: sync+restart
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "${FRONTEND_PORT:-3000}:${FRONTEND_PORT:-3000}"
+    environment:
+      - PORT=${FRONTEND_PORT:-3000}
+    develop:
+      watch:
+        - path: ./frontend
+          target: /app
+          action: sync+restart
